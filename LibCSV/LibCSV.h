@@ -3,6 +3,7 @@
 #else
 #define LIBCSV_API __declspec(dllimport)
 #endif // LIBCSV_EXPORTS
+
 #include <string>
 #include <vector>
 #include <list>
@@ -31,6 +32,7 @@ public:
 	int update_element(const int& row, const int& col, const std::string& new_element);
 
 private:
+
 	std::ifstream csv_file;
 };
 
