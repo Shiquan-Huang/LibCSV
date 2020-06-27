@@ -129,6 +129,20 @@ copy /y "$(SolutionDir)$(ProjectName)\$(ProjectName).h" "$(SolutionDir)include\$
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(SolutionDir)dll\$(PlatformName)\$(Configuration)" (
+    mkdir "$(SolutionDir)dll\$(PlatformName)\$(Configuration)"
+)
+move "$(TargetPath)" "$(SolutionDir)dll\$(PlatformName)\$(Configuration)"
+if not exist "$(SolutionDir)lib\$(PlatformName)\$(Configuration)" (
+    mkdir "$(SolutionDir)lib\$(PlatformName)\$(Configuration)"
+)
+move "$(OutputPath)$(ProjectName).lib" "$(SolutionDir)lib\$(PlatformName)\$(Configuration)" 
+if not exist "$(SolutionDir)\include\$(ProjectName)" (
+    mkdir "$(SolutionDir)include\$(ProjectName)"
+)
+copy /y "$(SolutionDir)$(ProjectName)\$(ProjectName).h" "$(SolutionDir)include\$(ProjectName)" </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
